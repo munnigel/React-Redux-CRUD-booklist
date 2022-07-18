@@ -5,7 +5,6 @@ import {useEffect, useState} from 'react';
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Link } from "react-router-dom";
 
 const EditBookPage = () => {
 
@@ -34,31 +33,53 @@ const EditBookPage = () => {
 
     return (
         <Container>
-            <Link to="/">
-                <div>Go back</div>
-            </Link>
-            <h1>Edit Book</h1>
+            <a class="HOVER" onClick={() => {navigate('/');}}>
+            <span></span>
+            <text id='btn'>Back to main page</text>
+        </a>
             <form onSubmit={handleSubmit}>
-                <div>
-                    New Title:
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <div className="Book">
+                    <h1> Edit Book </h1>
+                    <div class="input-box">
+                        <textarea type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <label>Title</label>
+                    </div>  
+
+                    
+
+                    <div class="input-box">
+                        <textarea type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
+                        <label>Genre</label>
+                    </div>
+
+                    <div class="input-box">
+                        <textarea type="text" value={summary} onChange={(e) => setBookSumm(e.target.value)} />
+                        <label>Summary</label>
+                    </div>
+
+                        <button type="submit" class="add-btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                             Update book
+                        </button>   
+
+                        <button class="add-btn" onClick={() => {
+                            dispatch(deleteBook(isbn));
+                            navigate('/');
+                                }
+                        }>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Delete
+                        </button>
                 </div>
-                <div>
-                    New Genre:
-                    <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
-                </div>
-                <div>
-                    New Description:
-                    <input type="text" value={summary} onChange={(e) => setBookSumm(e.target.value)} />
-                </div>
-                    <button type="submit">Update</button>
             </form>
 
-            <button onClick={() => {
-                dispatch(deleteBook(isbn));
-                navigate('/');
-            }
-            }>Delete</button>
+           
 
 
         </Container>
@@ -72,5 +93,6 @@ flex-direction: column;
 text-align: center;
 height: 100vh;
 `
+
 
 export default EditBookPage;

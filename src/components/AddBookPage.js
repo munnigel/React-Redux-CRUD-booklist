@@ -4,7 +4,6 @@ import {useState} from 'react';
 import { addBook } from '../features/books';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import {Link} from 'react-router-dom';
 
 
 function AddBookPage() {
@@ -22,7 +21,7 @@ function AddBookPage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (title.length === 0 || isbn.length === 0 || genre.length === 0 || isNumber(isbn) === false) {
+        if (title.length === 0 || isbn.length === 0 || genre.length === 0 || isNumber(isbn) === false || isbn.length !== 13) {
             setError(true);
         }
         if (title&&isbn&&genre) {
@@ -34,7 +33,7 @@ function AddBookPage() {
     }
 
     useEffect(() => {
-        if (title.length === 0 || isbn.length === 0 || genre.length === 0 || isNumber(isbn) === false) {
+        if (title.length === 0 || isbn.length === 0 || genre.length === 0 || isNumber(isbn) === false || isbn.length !== 13) {
             setError(true);
         }
         else {
@@ -47,51 +46,50 @@ function AddBookPage() {
 
   return (
     <Container>
-        <Link to="/">
-            <div>Go back</div>
-        </Link>
-        <h1>Add Book</h1>
+        <a class="HOVER" onClick={() => {navigate('/');}}>
+            <span></span>
+            <text id='btn'>Back to main page</text>
+        </a>
+
         <form onSubmit={handleSubmit}>
-            <div className="addUser">
-                <p>
-                    <label>Enter Title</label>
-                </p>
-                <p>
-                    <input type="text" placeholder="Enter Title"  onChange={(event) => {
+            <div className="Book">
+                <h1> Add Book </h1>
+                <div class="input-box">
+                    <textarea type="text" rows="2" onChange={(event) => {
                     setTitle(event.target.value)}}/>
-                </p>
-                {error&&title.length<=0?
-                <Label >Title cannot be empty</Label>: ''}
+                    <label>Enter Title</label>           
+                    {error&&title.length<=0?
+                    <Lbl >Title cannot be empty</Lbl>: ''}
+                </div>
 
-                <p>
-                    <label>Enter Genre</label>
-                </p>
-                <p>
-                    <input type="text" placeholder="Enter Genre"  onChange={(event) => {
+                <div class="input-box">
+                    <textarea type="text" onChange={(event) => {
                     setGenre(event.target.value)}}/>
-                </p>
-                {error&&genre.length<=0?
-                <Label >Genre cannot be empty</Label>: ''}
+                    <label>Enter Genre</label>
+                    {error&&genre.length<=0?
+                    <Lbl >Genre cannot be empty</Lbl>: ''}
+                </div>
 
-                <p>
-                    <label>Enter ISBN</label>
-                </p>
-                <p>
-                    <input type="text" placeholder="Enter ISBN"  onChange={(event) => {
+                <div class="input-box">
+                    <textarea type="text" onChange={(event) => {
                     setIsbn(event.target.value)}} />
-                </p>
-                {error&&(isbn.length<=0||isNumber(isbn)===false)?
-                <Label >ISBN cannot be empty and must be a NUMBER</Label>: ''}
+                    <label>Enter ISBN</label>
+                    {error&&(isbn.length<=0||isNumber(isbn)===false||isbn.length!==13)?
+                    <Lbl >ISBN must be a NUMBER with 13 digits</Lbl>: ''}
+                </div>
 
-                <p>
-                    <label>Enter Summary</label>
-                </p>
-                <p>
-                    <input type="text" placeholder="Enter Summary (Optional)"  onChange={(event) => {
+                <div class="input-box">
+                    <textarea type="text" onChange={(event) => {
                     setSummary(event.target.value)}} />
-                </p>
-                <button type="submit" disabled={error}>Add user</button>
-  
+                    <label>Enter Summary (Optional) </label>
+                </div>
+                    <button type="submit" disabled={error} class="add-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Add book
+                    </button>   
             </div> 
         </form>
     </Container>
@@ -105,13 +103,12 @@ flex-direction: column;
 text-align: center;
 height: 100vh;
 `
-const Label = styled.label`
+const Lbl = styled.div`
     color: red;
     font-weight: bold;
+    height: 20px;
+    margin-bottom: 15px;
 `
-
-
-
 
 
 export default AddBookPage
