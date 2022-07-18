@@ -46,7 +46,14 @@ const MainBookPage = () => {
                                     <div class="genre">
                                         <h2> <b>Genre:  </b>{book.genre}</h2>
                                     </div>
+
+                                    <div class="summary">
+                                        <span class="sumhid"> <b>Summary:  </b>{book.summary}</span>
                                     </div>
+
+                                    </div>
+
+                              
                                 </div>
                                     
                             </Link>
@@ -72,4 +79,8 @@ font-family:sans-serif;
 
 
 
-export default MainBookPage
+
+
+
+
+export default MainBookPage;
